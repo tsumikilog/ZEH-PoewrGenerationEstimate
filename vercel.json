@@ -1,17 +1,14 @@
 {
   "version": 2,
   "functions": {
-    "app.py": {
-      "runtime": "python3.9"
+    "api/index.py": {
+      "runtime": "@vercel/python"
     }
   },
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "app.py"
+      "dest": "/api/index.py"
     }
-  ],
-  "env": {
-    "PYTHONPATH": "./"
-  }
+  ]
 }
