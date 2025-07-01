@@ -126,6 +126,45 @@
             display: none;
         }
 
+        .address-input-wrapper {
+            position: relative;
+        }
+
+        .address-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #ddd;
+            border-top: none;
+            border-radius: 0 0 4px 4px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+        }
+
+        .address-suggestion-item {
+            padding: 12px;
+            cursor: pointer;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background-color 0.2s;
+        }
+
+        .address-suggestion-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .address-suggestion-item:last-child {
+            border-bottom: none;
+        }
+
+        .address-suggestion-item.selected {
+            background-color: #4CAF50;
+            color: white;
+        }
+
         .result-section {
             background: white;
             padding: 2rem;
@@ -227,6 +266,93 @@
             font-weight: bold;
         }
 
+        .calculation-details {
+            margin-bottom: 2rem;
+            border-top: 1px solid #eee;
+            padding-top: 1.5rem;
+        }
+
+        .calculation-details h3 {
+            color: #333;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .calculation-details h4 {
+            color: #444;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .formula-box {
+            background: #f8f9fa;
+            border: 2px solid #4CAF50;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .formula-box p {
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .formula-breakdown {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #ddd;
+        }
+
+        .formula-breakdown span {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        .explanation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .explanation-item {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.5rem;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .explanation-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .explanation-icon {
+            font-size: 1.5rem;
+        }
+
+        .explanation-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .explanation-content p {
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .explanation-detail {
+            color: #666;
+            font-size: 0.85rem;
+            font-style: italic;
+        }
+
         .input-summary {
             border-top: 1px solid #eee;
             padding-top: 1.5rem;
@@ -236,6 +362,193 @@
             color: #333;
             margin-bottom: 1rem;
             font-size: 1.2rem;
+        }
+
+        .zeh-info-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+            border: 1px solid #dee2e6;
+        }
+
+        .zeh-info-section h3 {
+            color: #333;
+            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+            text-align: center;
+        }
+
+        .zeh-info-section h4 {
+            color: #444;
+            margin: 2rem 0 1rem 0;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .zeh-overview {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .zeh-overview p {
+            margin: 0;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .zeh-criteria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .criteria-item {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            border: 2px solid #e9ecef;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .criteria-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .criteria-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .criteria-icon {
+            font-size: 1.8rem;
+        }
+
+        .criteria-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .criteria-content p {
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .criteria-detail {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .zeh-judgment-info {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .judgment-criteria {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .judgment-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 2px solid transparent;
+        }
+
+        .judgment-item.good {
+            background: #e8f5e8;
+            border-color: #4CAF50;
+        }
+
+        .judgment-item.fair {
+            background: #fff3cd;
+            border-color: #ffc107;
+        }
+
+        .judgment-item.poor {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+
+        .judgment-symbol {
+            font-size: 1.5rem;
+            font-weight: bold;
+            min-width: 30px;
+        }
+
+        .judgment-text strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .judgment-text p {
+            margin: 0.25rem 0;
+            font-size: 0.9rem;
+        }
+
+        .judgment-note {
+            color: #666;
+            font-style: italic;
+        }
+
+        .zeh-benefits {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .benefit-icon {
+            font-size: 1.5rem;
+            min-width: 30px;
+        }
+
+        .benefit-content strong {
+            display: block;
+            margin-bottom: 0.25rem;
+            color: #333;
+            font-size: 0.95rem;
+        }
+
+        .benefit-content p {
+            margin: 0;
+            color: #666;
+            font-size: 0.85rem;
+            line-height: 1.3;
         }
 
         footer {
@@ -287,7 +600,12 @@
             <form id="simulationForm">
                 <div class="form-group">
                     <label for="address">住所（市区町村まで）<span style="color: red;">*</span></label>
-                    <input type="text" id="address" name="address" placeholder="例: 東京都新宿区" required>
+                    <div class="address-input-wrapper">
+                        <input type="text" id="address" name="address" placeholder="例: 東京都新宿区" required autocomplete="off">
+                        <div id="address-suggestions" class="address-suggestions"></div>
+                    </div>
+                    <input type="hidden" id="latitude" name="latitude">
+                    <input type="hidden" id="longitude" name="longitude">
                 </div>
 
                 <div class="form-group">
@@ -341,6 +659,58 @@
                 </div>
             </div>
 
+            <div class="calculation-details">
+                <h3>計算詳細</h3>
+                <div class="calculation-formula">
+                    <h4>📊 発電量計算式</h4>
+                    <div class="formula-box">
+                        <p><strong>年間発電量 (kWh) = 日射量係数 × 屋根面積 × システム効率 × 角度係数</strong></p>
+                        <div class="formula-breakdown" id="formulaBreakdown">
+                            <p>= <span id="irradianceForFormula">-</span> × <span id="areaForFormula">-</span> × <span id="efficiencyForFormula">15%</span> × <span id="angleForFormula">-</span></p>
+                            <p>= <span id="calculationResult">-</span> kWh</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="parameter-explanations">
+                    <h4>🔍 パラメータ説明</h4>
+                    <div class="explanation-grid">
+                        <div class="explanation-item">
+                            <div class="explanation-header">
+                                <span class="explanation-icon">☀️</span>
+                                <span class="explanation-title">日射量係数</span>
+                            </div>
+                            <div class="explanation-content">
+                                <p><span id="irradianceExplanation">地域の年間日射量データに基づく係数</span></p>
+                                <p class="explanation-detail" id="irradianceDetail">緯度や地域の気象条件を考慮して算出</p>
+                            </div>
+                        </div>
+                        
+                        <div class="explanation-item">
+                            <div class="explanation-header">
+                                <span class="explanation-icon">🏠</span>
+                                <span class="explanation-title">システム効率</span>
+                            </div>
+                            <div class="explanation-content">
+                                <p>太陽光パネルと関連機器の総合効率</p>
+                                <p class="explanation-detail">パネル効率(20%) × インバータ効率(95%) × その他損失(79%) ≈ 15%</p>
+                            </div>
+                        </div>
+                        
+                        <div class="explanation-item">
+                            <div class="explanation-header">
+                                <span class="explanation-icon">📐</span>
+                                <span class="explanation-title">角度係数</span>
+                            </div>
+                            <div class="explanation-content">
+                                <p>屋根の傾斜角度による発電効率</p>
+                                <p class="explanation-detail" id="angleExplanation">最適角度(30°)からの効率変化を反映</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="input-summary">
                 <h3>入力条件</h3>
                 <div class="details-grid">
@@ -356,6 +726,120 @@
                         <span class="detail-label">傾斜角度</span>
                         <span class="detail-value" id="inputRoofAngle">-</span>
                     </div>
+                    <div class="detail-item" id="coordinateInfo" style="display: none;">
+                        <span class="detail-label">取得座標</span>
+                        <span class="detail-value" id="coordinateValue">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="zeh-info-section">
+                <h3>🏡 ZEH（ネット・ゼロ・エネルギー・ハウス）とは</h3>
+                <div class="zeh-info-content">
+                    <div class="zeh-overview">
+                        <p>ZEHとは、高断熱・高気密化により消費エネルギーを削減し、太陽光発電などで創エネすることで、年間の一次エネルギー収支をゼロ以下にする住宅です。</p>
+                    </div>
+                    
+                    <div class="zeh-criteria-grid">
+                        <div class="criteria-item">
+                            <div class="criteria-header">
+                                <span class="criteria-icon">🌡️</span>
+                                <span class="criteria-title">断熱性能</span>
+                            </div>
+                            <div class="criteria-content">
+                                <p><strong>強化外皮基準</strong></p>
+                                <p class="criteria-detail">UA値: 0.4〜0.6 W/(m²・K)以下<br>（地域により異なる）</p>
+                            </div>
+                        </div>
+
+                        <div class="criteria-item">
+                            <div class="criteria-header">
+                                <span class="criteria-icon">💡</span>
+                                <span class="criteria-title">省エネ性能</span>
+                            </div>
+                            <div class="criteria-content">
+                                <p><strong>一次エネルギー削減率</strong></p>
+                                <p class="criteria-detail">基準一次エネルギー消費量から<br>20%以上削減</p>
+                            </div>
+                        </div>
+
+                        <div class="criteria-item">
+                            <div class="criteria-header">
+                                <span class="criteria-icon">⚡</span>
+                                <span class="criteria-title">創エネ性能</span>
+                            </div>
+                            <div class="criteria-content">
+                                <p><strong>再生可能エネルギー</strong></p>
+                                <p class="criteria-detail">太陽光発電等により<br>エネルギー収支をゼロ以下に</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="zeh-judgment-info">
+                        <h4>📊 本シミュレーターの判定基準</h4>
+                        <div class="judgment-criteria">
+                            <div class="judgment-item good">
+                                <span class="judgment-symbol">◯</span>
+                                <div class="judgment-text">
+                                    <strong>ZEH基準達成可能</strong>
+                                    <p>年間発電量 5,000kWh以上</p>
+                                    <p class="judgment-note">一般的な住宅の年間消費電力量をカバー</p>
+                                </div>
+                            </div>
+                            
+                            <div class="judgment-item fair">
+                                <span class="judgment-symbol">△</span>
+                                <div class="judgment-text">
+                                    <strong>ZEH基準達成困難</strong>
+                                    <p>年間発電量 3,000〜4,999kWh</p>
+                                    <p class="judgment-note">省エネ対策との組み合わせで達成可能</p>
+                                </div>
+                            </div>
+                            
+                            <div class="judgment-item poor">
+                                <span class="judgment-symbol">✕</span>
+                                <div class="judgment-text">
+                                    <strong>ZEH基準達成不可</strong>
+                                    <p>年間発電量 3,000kWh未満</p>
+                                    <p class="judgment-note">屋根面積の拡大や高効率パネルの検討が必要</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="zeh-benefits">
+                        <h4>💰 ZEH住宅のメリット</h4>
+                        <div class="benefits-grid">
+                            <div class="benefit-item">
+                                <span class="benefit-icon">💴</span>
+                                <div class="benefit-content">
+                                    <strong>光熱費削減</strong>
+                                    <p>年間10〜20万円程度の削減効果</p>
+                                </div>
+                            </div>
+                            <div class="benefit-item">
+                                <span class="benefit-icon">🏆</span>
+                                <div class="benefit-content">
+                                    <strong>補助金制度</strong>
+                                    <p>国・自治体から最大100万円程度</p>
+                                </div>
+                            </div>
+                            <div class="benefit-item">
+                                <span class="benefit-icon">🌿</span>
+                                <div class="benefit-content">
+                                    <strong>環境貢献</strong>
+                                    <p>CO₂削減・脱炭素社会への貢献</p>
+                                </div>
+                            </div>
+                            <div class="benefit-item">
+                                <span class="benefit-icon">🏠</span>
+                                <div class="benefit-content">
+                                    <strong>快適性向上</strong>
+                                    <p>断熱性能向上による年中快適</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -366,6 +850,189 @@
     </div>
 
     <script>
+        // Google Places API設定
+        let autocompleteService;
+        let geocoder;
+        let selectedSuggestionIndex = -1;
+
+        // Google Maps API初期化
+        function initGoogleMaps() {
+            if (typeof google !== 'undefined' && google.maps) {
+                autocompleteService = new google.maps.places.AutocompleteService();
+                geocoder = new google.maps.Geocoder();
+                setupAddressAutocomplete();
+            } else {
+                // APIが利用できない場合は従来の動作
+                console.warn('Google Maps API not available, using fallback address input');
+            }
+        }
+
+        // 住所自動補完の設定
+        function setupAddressAutocomplete() {
+            const addressInput = document.getElementById('address');
+            const suggestionsContainer = document.getElementById('address-suggestions');
+
+            let debounceTimer;
+
+            addressInput.addEventListener('input', function(e) {
+                clearTimeout(debounceTimer);
+                const query = e.target.value.trim();
+
+                if (query.length < 2) {
+                    hideSuggestions();
+                    return;
+                }
+
+                debounceTimer = setTimeout(() => {
+                    searchAddresses(query);
+                }, 300);
+            });
+
+            // キーボードナビゲーション
+            addressInput.addEventListener('keydown', function(e) {
+                const suggestions = suggestionsContainer.querySelectorAll('.address-suggestion-item');
+                
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    selectedSuggestionIndex = Math.min(selectedSuggestionIndex + 1, suggestions.length - 1);
+                    updateSuggestionSelection(suggestions);
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    selectedSuggestionIndex = Math.max(selectedSuggestionIndex - 1, -1);
+                    updateSuggestionSelection(suggestions);
+                } else if (e.key === 'Enter' && selectedSuggestionIndex >= 0) {
+                    e.preventDefault();
+                    selectSuggestion(suggestions[selectedSuggestionIndex]);
+                } else if (e.key === 'Escape') {
+                    hideSuggestions();
+                }
+            });
+
+            // クリック外で閉じる
+            document.addEventListener('click', function(e) {
+                if (!addressInput.contains(e.target) && !suggestionsContainer.contains(e.target)) {
+                    hideSuggestions();
+                }
+            });
+        }
+
+        // 住所検索
+        function searchAddresses(query) {
+            if (!autocompleteService) {
+                // Google Places APIが利用できない場合のフォールバック
+                showFallbackSuggestions(query);
+                return;
+            }
+
+            const request = {
+                input: query,
+                componentRestrictions: { country: 'jp' },
+                types: ['address']
+            };
+
+            autocompleteService.getPlacePredictions(request, (predictions, status) => {
+                if (status === google.maps.places.PlacesServiceStatus.OK && predictions) {
+                    showSuggestions(predictions);
+                } else {
+                    showFallbackSuggestions(query);
+                }
+            });
+        }
+
+        // Google Places APIの候補表示
+        function showSuggestions(predictions) {
+            const suggestionsContainer = document.getElementById('address-suggestions');
+            suggestionsContainer.innerHTML = '';
+            selectedSuggestionIndex = -1;
+
+            predictions.forEach((prediction, index) => {
+                const item = document.createElement('div');
+                item.className = 'address-suggestion-item';
+                item.textContent = prediction.description;
+                item.dataset.placeId = prediction.place_id;
+                
+                item.addEventListener('click', () => selectSuggestion(item));
+                suggestionsContainer.appendChild(item);
+            });
+
+            suggestionsContainer.style.display = 'block';
+        }
+
+        // フォールバック候補表示（Google API無し）
+        function showFallbackSuggestions(query) {
+            const fallbackAddresses = [
+                '北海道札幌市', '宮城県仙台市', '東京都新宿区', '東京都渋谷区', '東京都品川区',
+                '千葉県千葉市', '神奈川県横浜市', '愛知県名古屋市', '大阪府大阪市', 
+                '京都府京都市', '兵庫県神戸市', '広島県広島市', '福岡県福岡市', '沖縄県那覇市'
+            ];
+
+            const filteredAddresses = fallbackAddresses.filter(addr => 
+                addr.toLowerCase().includes(query.toLowerCase())
+            );
+
+            const suggestionsContainer = document.getElementById('address-suggestions');
+            suggestionsContainer.innerHTML = '';
+            selectedSuggestionIndex = -1;
+
+            filteredAddresses.forEach((address, index) => {
+                const item = document.createElement('div');
+                item.className = 'address-suggestion-item';
+                item.textContent = address;
+                
+                item.addEventListener('click', () => selectSuggestion(item));
+                suggestionsContainer.appendChild(item);
+            });
+
+            if (filteredAddresses.length > 0) {
+                suggestionsContainer.style.display = 'block';
+            } else {
+                hideSuggestions();
+            }
+        }
+
+        // 候補選択状態の更新
+        function updateSuggestionSelection(suggestions) {
+            suggestions.forEach((item, index) => {
+                item.classList.toggle('selected', index === selectedSuggestionIndex);
+            });
+        }
+
+        // 候補選択
+        function selectSuggestion(item) {
+            const addressInput = document.getElementById('address');
+            addressInput.value = item.textContent;
+            
+            // Google Places APIを使用している場合は座標を取得
+            if (item.dataset.placeId && geocoder) {
+                geocoder.geocode({ placeId: item.dataset.placeId }, (results, status) => {
+                    if (status === 'OK' && results[0]) {
+                        const location = results[0].geometry.location;
+                        document.getElementById('latitude').value = location.lat();
+                        document.getElementById('longitude').value = location.lng();
+                    }
+                });
+            }
+            
+            hideSuggestions();
+        }
+
+        // 候補を隠す
+        function hideSuggestions() {
+            document.getElementById('address-suggestions').style.display = 'none';
+            selectedSuggestionIndex = -1;
+        }
+
+        // ページ読み込み時にGoogle Maps APIを初期化
+        document.addEventListener('DOMContentLoaded', function() {
+            // Google Maps APIが利用可能な場合は初期化
+            if (typeof google !== 'undefined') {
+                initGoogleMaps();
+            } else {
+                // APIが読み込まれていない場合は読み込み完了を待つ
+                window.initGoogleMaps = initGoogleMaps;
+            }
+        });
+
         document.getElementById('simulationForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
@@ -423,6 +1090,35 @@
             document.getElementById('irradianceValue').textContent = `${result.solar_irradiance} kWh/m²`;
             document.getElementById('efficiencyValue').textContent = `${result.system_efficiency}%`;
             document.getElementById('angleFactorValue').textContent = result.angle_factor;
+            
+            // 計算式の詳細表示
+            document.getElementById('irradianceForFormula').textContent = `${result.solar_irradiance} kWh/m²`;
+            document.getElementById('areaForFormula').textContent = `${input.roof_area} m²`;
+            document.getElementById('angleForFormula').textContent = result.angle_factor;
+            document.getElementById('calculationResult').textContent = result.annual_generation.toLocaleString();
+            
+            // パラメータ説明の更新
+            const optimalAngleDiff = Math.abs(input.roof_angle - 30);
+            const efficiencyLoss = Math.min(optimalAngleDiff * 0.5, 20);
+            
+            document.getElementById('irradianceExplanation').textContent = 
+                `${result.solar_irradiance} kWh/m² (${input.address}の年間日射量)`;
+            
+            if (input.latitude && input.longitude) {
+                document.getElementById('irradianceDetail').textContent = 
+                    `緯度 ${input.latitude.toFixed(2)}° に基づく正確な日射量データ`;
+                
+                // 座標情報を表示
+                document.getElementById('coordinateInfo').style.display = 'flex';
+                document.getElementById('coordinateValue').textContent = 
+                    `${input.latitude.toFixed(4)}, ${input.longitude.toFixed(4)}`;
+            } else {
+                document.getElementById('irradianceDetail').textContent = 
+                    '住所文字列に基づく地域別日射量データ';
+            }
+            
+            document.getElementById('angleExplanation').textContent = 
+                `${input.roof_angle}° の角度による効率: ${((1 - efficiencyLoss/100) * 100).toFixed(1)}%`;
             
             // 入力条件
             document.getElementById('inputAddress').textContent = input.address;

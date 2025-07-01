@@ -30,17 +30,49 @@ SOLAR_IRRADIANCE_DATA = {
 
 DEFAULT_IRRADIANCE = 1350  # デフォルト値
 
-def get_solar_irradiance_by_address(address):
-    """住所から日射量係数を取得"""
+def get_solar_irradiance_by_coordinates(latitude, longitude):
+    """緯度経度から日射量係数を取得（より正確な計算）"""
+    if not latitude or not longitude:
+        return None
+    
+    # 緯度に基づく基本日射量の計算
+    # 日本の緯度範囲: 約24°N（沖縄）〜 45°N（北海道）
+    lat = float(latitude)
+    
+    # 緯度による日射量補正（南ほど多い）
+    if lat >= 43:  # 北海道
+        base_irradiance = 1200
+    elif lat >= 38:  # 東北・北陸
+        base_irradiance = 1300
+    elif lat >= 35:  # 関東・中部
+        base_irradiance = 1400
+    elif lat >= 33:  # 関西・中国
+        base_irradiance = 1450
+    elif lat >= 31:  # 四国・九州
+        base_irradiance = 1500
+    else:  # 沖縄
+        base_irradiance = 1600
+    
+    return base_irradiance
+
+def get_solar_irradiance_by_address(address, latitude=None, longitude=None):
+    """住所と緯度経度から日射量係数を取得（座標優先）"""
+    # 緯度経度がある場合は優先的に使用
+    if latitude and longitude:
+        coordinate_irradiance = get_solar_irradiance_by_coordinates(latitude, longitude)
+        if coordinate_irradiance:
+            return coordinate_irradiance
+    
+    # 従来の住所ベース検索
     for region, irradiance in SOLAR_IRRADIANCE_DATA.items():
         if region in address:
             return irradiance
     return DEFAULT_IRRADIANCE
 
-def calculate_solar_generation(address, roof_area, roof_angle):
+def calculate_solar_generation(address, roof_area, roof_angle, latitude=None, longitude=None):
     """太陽光発電量を計算"""
     # パラメータ
-    solar_irradiance = get_solar_irradiance_by_address(address)
+    solar_irradiance = get_solar_irradiance_by_address(address, latitude, longitude)
     system_efficiency = 0.15  # システム効率 15%
     
     # 角度をラジアンに変換
@@ -80,6 +112,15 @@ def calculate():
         roof_area = float(request.form['roof_area'])
         roof_angle = float(request.form['roof_angle'])
         
+        # 緯度経度（オプション）
+        latitude = request.form.get('latitude')
+        longitude = request.form.get('longitude')
+        
+        if latitude:
+            latitude = float(latitude)
+        if longitude:
+            longitude = float(longitude)
+        
         # バリデーション
         if not address:
             return jsonify({'error': '住所を入力してください'}), 400
@@ -89,7 +130,7 @@ def calculate():
             return jsonify({'error': '屋根の傾斜角度は0〜90度の範囲で入力してください'}), 400
         
         # 計算実行
-        result = calculate_solar_generation(address, roof_area, roof_angle)
+        result = calculate_solar_generation(address, roof_area, roof_angle, latitude, longitude)
         zeh_judgment = judge_zeh_potential(result['annual_generation'])
         
         # 結果をまとめる
