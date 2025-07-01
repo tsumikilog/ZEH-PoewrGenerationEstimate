@@ -127,9 +127,8 @@ def health():
         'version': '1.0.0'
     })
 
-# Vercel用のハンドラー
-def handler(request):
-    return app(request.environ, lambda status, headers: None)
+# Vercel用のハンドラー - WSGIアプリケーションとして実行
+app.wsgi_app = app.wsgi_app
 
 if __name__ == '__main__':
     app.run(debug=True)
