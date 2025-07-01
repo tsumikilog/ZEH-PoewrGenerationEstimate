@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZEH太陽光発電シミュレーター</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .form-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .form-section h2 {
+            color: #333;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+        .submit-btn {
+            background: #4CAF50;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: #45a049;
+        }
+
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 1rem;
+            color: #666;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            border: 1px solid #f5c6cb;
+            display: none;
+        }
+
+        .result-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .result-section h2 {
+            color: #333;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 0.5rem;
+        }
+
+        .result-main {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .generation-result {
+            text-align: left;
+        }
+
+        .generation-result .label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.25rem;
+        }
+
+        .generation-result .value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        .generation-result .unit {
+            font-size: 1.2rem;
+            color: #666;
+            margin-left: 0.5rem;
+        }
+
+        .zeh-judgment {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .zeh-judgment.good {
+            background: #e8f5e8;
+            color: #4CAF50;
+        }
+
+        .zeh-judgment.fair {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .zeh-judgment.poor {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .zeh-judgment .symbol {
+            font-size: 1.5rem;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .detail-label {
+            color: #666;
+            font-weight: 500;
+        }
+
+        .detail-value {
+            color: #333;
+            font-weight: bold;
+        }
+
+        .input-summary {
+            border-top: 1px solid #eee;
+            padding-top: 1.5rem;
+        }
+
+        .input-summary h3 {
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: #666;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+
+            .container {
+                padding: 10px;
+            }
+
+            .form-section,
+            .result-section {
+                padding: 1.5rem;
+            }
+
+            .result-main {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ZEH太陽光発電シミュレーター</h1>
+            <p>ZEH住宅向け太陽光発電量を簡単に試算できます</p>
+        </header>
+
+        <div class="form-section">
+            <h2>条件入力</h2>
+            <form id="simulationForm">
+                <div class="form-group">
+                    <label for="address">住所（市区町村まで）<span style="color: red;">*</span></label>
+                    <input type="text" id="address" name="address" placeholder="例: 東京都新宿区" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="roof_area">屋根の面積（m²）<span style="color: red;">*</span></label>
+                    <input type="number" id="roof_area" name="roof_area" min="0.1" step="0.1" placeholder="例: 100" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="roof_angle">屋根の傾斜角度（度）<span style="color: red;">*</span></label>
+                    <input type="number" id="roof_angle" name="roof_angle" min="0" max="90" step="1" value="30" placeholder="例: 30" required>
+                </div>
+
+                <button type="submit" class="submit-btn" id="calculateBtn">計算する</button>
+            </form>
+
+            <div class="loading" id="loading">
+                計算中です...しばらくお待ちください
+            </div>
+
+            <div class="error-message" id="errorMessage"></div>
+        </div>
+
+        <div class="result-section" id="resultSection">
+            <h2>シミュレーション結果</h2>
+            
+            <div class="result-main">
+                <div class="generation-result">
+                    <div class="label">年間推定発電量</div>
+                    <span class="value" id="generationValue">0</span>
+                    <span class="unit">kWh</span>
+                </div>
+                
+                <div class="zeh-judgment" id="zehJudgment">
+                    <span class="symbol" id="zehSymbol">?</span>
+                    <span class="text" id="zehText">判定中</span>
+                </div>
+            </div>
+
+            <div class="details-grid">
+                <div class="detail-item">
+                    <span class="detail-label">日射量係数</span>
+                    <span class="detail-value" id="irradianceValue">-</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">システム効率</span>
+                    <span class="detail-value" id="efficiencyValue">-</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">角度係数</span>
+                    <span class="detail-value" id="angleFactorValue">-</span>
+                </div>
+            </div>
+
+            <div class="input-summary">
+                <h3>入力条件</h3>
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <span class="detail-label">住所</span>
+                        <span class="detail-value" id="inputAddress">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">屋根面積</span>
+                        <span class="detail-value" id="inputRoofArea">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">傾斜角度</span>
+                        <span class="detail-value" id="inputRoofAngle">-</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 ZEH太陽光発電シミュレーター - MVP版</p>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById('simulationForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const calculateBtn = document.getElementById('calculateBtn');
+            const loading = document.getElementById('loading');
+            const errorMessage = document.getElementById('errorMessage');
+            const resultSection = document.getElementById('resultSection');
+            
+            // UI状態をリセット
+            calculateBtn.disabled = true;
+            loading.style.display = 'block';
+            errorMessage.style.display = 'none';
+            resultSection.style.display = 'none';
+            
+            try {
+                const response = await fetch('/calculate', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // 結果を表示
+                    displayResults(data);
+                } else {
+                    throw new Error(data.error || '計算に失敗しました');
+                }
+                
+            } catch (error) {
+                console.error('エラー:', error);
+                errorMessage.textContent = error.message || 'サーバーエラーが発生しました';
+                errorMessage.style.display = 'block';
+            } finally {
+                calculateBtn.disabled = false;
+                loading.style.display = 'none';
+            }
+        });
+        
+        function displayResults(data) {
+            const { input, result } = data;
+            
+            // メイン結果
+            document.getElementById('generationValue').textContent = result.annual_generation.toLocaleString();
+            
+            // ZEH判定
+            const judgment = result.zeh_judgment;
+            const zehJudgment = document.getElementById('zehJudgment');
+            document.getElementById('zehSymbol').textContent = judgment.symbol;
+            document.getElementById('zehText').textContent = judgment.text;
+            zehJudgment.className = `zeh-judgment ${judgment.class}`;
+            
+            // 詳細情報
+            document.getElementById('irradianceValue').textContent = `${result.solar_irradiance} kWh/m²`;
+            document.getElementById('efficiencyValue').textContent = `${result.system_efficiency}%`;
+            document.getElementById('angleFactorValue').textContent = result.angle_factor;
+            
+            // 入力条件
+            document.getElementById('inputAddress').textContent = input.address;
+            document.getElementById('inputRoofArea').textContent = `${input.roof_area} m²`;
+            document.getElementById('inputRoofAngle').textContent = `${input.roof_angle}°`;
+            
+            // 結果セクションを表示
+            document.getElementById('resultSection').style.display = 'block';
+            
+            // 結果までスクロール
+            document.getElementById('resultSection').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    </script>
+</body>
+</html>

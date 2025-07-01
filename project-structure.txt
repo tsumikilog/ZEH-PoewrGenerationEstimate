@@ -1,0 +1,53 @@
+wp-gamingpc-longtail-jura/
+├── package.json
+├── pnpm-workspace.yaml
+├── .env.example
+├── .gitignore
+├── tsconfig.json
+├── vitest.config.ts
+├── .eslintrc.js
+├── .prettierrc
+├── .github/
+│   └── workflows/
+│       └── ci.yml
+├── packages/
+│   ├── core/
+│   │   ├── package.json
+│   │   ├── src/
+│   │   │   ├── index.ts
+│   │   │   ├── types/
+│   │   │   │   └── index.ts
+│   │   │   ├── services/
+│   │   │   │   ├── llm-service.ts
+│   │   │   │   ├── wordpress-service.ts
+│   │   │   │   ├── unsplash-service.ts
+│   │   │   │   ├── notion-service.ts
+│   │   │   │   └── style-extractor.ts
+│   │   │   ├── utils/
+│   │   │   │   ├── csv-parser.ts
+│   │   │   │   ├── rate-limiter.ts
+│   │   │   │   └── database.ts
+│   │   │   └── generators/
+│   │   │       └── article-generator.ts
+│   │   └── tests/
+│   │       ├── llm-service.test.ts
+│   │       ├── wordpress-service.test.ts
+│   │       └── style-extractor.test.ts
+│   └── cli/
+│       ├── package.json
+│       ├── src/
+│       │   └── index.ts
+│       └── tests/
+│           └── cli.test.ts
+├── corpus/
+│   └── jura/
+│       ├── style-guide.md
+│       └── sample-articles/
+│           ├── article1.md
+│           └── article2.md
+├── docs/
+│   ├── README.md
+│   └── architecture.md
+└── data/
+    ├── keywords.csv
+    └── posts.db 
